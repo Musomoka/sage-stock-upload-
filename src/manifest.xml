@@ -11,13 +11,13 @@
   <Version>1.0.0.0</Version>
   <ProviderName>SageStockUpload</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="SageStockUpload" />
-  <Description DefaultValue="Stock data management &amp; upload to Sage Cloud" />
+  <DisplayName DefaultValue="Switch Pricelist" />
+  <Description DefaultValue="Edit prices &amp; export Switch pricelist CSV" />
 
   <!-- ── Icons ── -->
-  <IconUrl DefaultValue="https://YOUR_USERNAME.github.io/sage-stock-upload/assets/icon-32.png" />
-  <HighResolutionIconUrl DefaultValue="https://YOUR_USERNAME.github.io/sage-stock-upload/assets/icon-64.png" />
-  <SupportUrl DefaultValue="https://github.com/YOUR_USERNAME/sage-stock-upload/issues" />
+  <IconUrl DefaultValue="https://musomoka.github.io/sage-stock-upload-/assets/icon-32.png" />
+  <HighResolutionIconUrl DefaultValue="https://musomoka.github.io/sage-stock-upload-/assets/icon-64.png" />
+  <SupportUrl DefaultValue="https://github.com/Musomoka/sage-stock-upload-/issues" />
 
   <!-- ── Host ── -->
   <Hosts>
@@ -32,7 +32,7 @@
 
   <!-- ── Default Settings ── -->
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://YOUR_USERNAME.github.io/sage-stock-upload/index.html" />
+    <SourceLocation DefaultValue="https://musomoka.github.io/sage-stock-upload-/index.html" />
   </DefaultSettings>
 
   <!-- ── Permissions ── -->
@@ -86,14 +86,14 @@
 
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16x16" DefaultValue="https://YOUR_USERNAME.github.io/sage-stock-upload/assets/icon-16.png" />
-        <bt:Image id="Icon.32x32" DefaultValue="https://YOUR_USERNAME.github.io/sage-stock-upload/assets/icon-32.png" />
-        <bt:Image id="Icon.80x80" DefaultValue="https://YOUR_USERNAME.github.io/sage-stock-upload/assets/icon-80.png" />
+        <bt:Image id="Icon.16x16" DefaultValue="https://musomoka.github.io/sage-stock-upload-/assets/icon-16.png" />
+        <bt:Image id="Icon.32x32" DefaultValue="https://musomoka.github.io/sage-stock-upload-/assets/icon-32.png" />
+        <bt:Image id="Icon.80x80" DefaultValue="https://musomoka.github.io/sage-stock-upload-/assets/icon-80.png" />
       </bt:Images>
 
       <bt:Urls>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://YOUR_USERNAME.github.io/sage-stock-upload/index.html" />
-        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://github.com/YOUR_USERNAME/sage-stock-upload" />
+        <bt:Url id="Taskpane.Url" DefaultValue="https://musomoka.github.io/sage-stock-upload-/index.html" />
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://github.com/Musomoka/sage-stock-upload-" />
       </bt:Urls>
 
       <bt:ShortStrings>
