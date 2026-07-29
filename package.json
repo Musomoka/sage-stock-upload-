@@ -7,7 +7,7 @@
     "dev": "webpack serve --mode development",
     "build": "webpack --mode production",
     "start": "webpack serve --mode development --open",
-    "deploy": "npm run build && npx gh-pages -d dist"
+    "deploy": "npm run build && git add docs && git commit -m 'Deploy to Pages' && git push",
   },
   "dependencies": {
     "react": "^18.2.0",
