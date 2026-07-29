@@ -2,56 +2,54 @@ import React from 'react';
 
 const SettingsPanel: React.FC = () => (
   <div className="settings-panel">
-    {/* ── Sage Connection ── */}
+    {/* ── Export Settings ── */}
     <div className="wf-card wf-accent-blue">
       <div className="wf-card-header">
-        <h3 className="wf-card-title">🔗 Sage Cloud Connection</h3>
-        <p className="wf-card-subtitle">Configure your Sage integration settings</p>
+        <h3 className="wf-card-title">📤 CSV Export Settings</h3>
+        <p className="wf-card-subtitle">Configure how the pricelist CSV is generated</p>
       </div>
       <div className="wf-card-body">
         <div className="wf-form-group">
-          <label className="wf-label">Sage API Endpoint</label>
-          <input className="wf-input" placeholder="https://api.sage.com/v3/..." readOnly />
+          <label className="wf-label">Output Filename</label>
+          <input className="wf-input" placeholder="SWITCH PRICELIST.csv" readOnly />
         </div>
         <div className="wf-form-group">
-          <label className="wf-label">API Key</label>
-          <input className="wf-input" type="password" value="••••••••••••••••" readOnly />
+          <label className="wf-label">Delimiter</label>
+          <input className="wf-input" placeholder="Comma (,)" readOnly />
         </div>
         <div className="wf-form-group">
-          <label className="wf-label">Company ID</label>
-          <input className="wf-input" placeholder="SAGE-COMPANY-12345" readOnly />
+          <label className="wf-label">Encoding</label>
+          <input className="wf-input" placeholder="UTF-8" readOnly />
         </div>
         <div className="wf-form-actions">
-          <button className="wf-btn wf-btn-primary">Test Connection</button>
-          <button className="wf-btn wf-btn-outline">Save</button>
+          <button className="wf-btn wf-btn-primary">💾 Save Settings</button>
         </div>
       </div>
     </div>
 
-    {/* ── Column Mapping ── */}
+    {/* ── Pricelist Tiers ── */}
     <div className="wf-card wf-accent-green">
       <div className="wf-card-header">
-        <h3 className="wf-card-title">📋 Column Mapping</h3>
-        <p className="wf-card-subtitle">Map your spreadsheet columns to Sage fields</p>
+        <h3 className="wf-card-title">🏷️ Pricelist Tiers</h3>
+        <p className="wf-card-subtitle">Active pricing tiers in your workbook</p>
       </div>
       <div className="wf-card-body">
         <div className="wf-mapping-grid">
           {[
-            { sheet: 'SKU Code',    sage: 'item_code' },
-            { sheet: 'Description', sage: 'description' },
-            { sheet: 'Quantity',    sage: 'quantity' },
-            { sheet: 'Unit Price',  sage: 'unit_price' },
-            { sheet: 'Warehouse',   sage: 'warehouse_id' },
+            { sheet: 'Retail',          sage: 'Walk-in pricing' },
+            { sheet: 'Warehouse Lusaka',sage: 'Lusaka trade' },
+            { sheet: 'Warehouse Kitwe', sage: 'Kitwe trade' },
+            { sheet: 'Jesmondine',      sage: 'Special location' },
           ].map((m, i) => (
             <div key={i} className="wf-mapping-row">
-              <span className="wf-mapping-sheet">📊 {m.sheet}</span>
+              <span className="wf-mapping-sheet">🏪 {m.sheet}</span>
               <span className="wf-mapping-arrow">→</span>
-              <span className="wf-mapping-sage">☁️ {m.sage}</span>
+              <span className="wf-mapping-sage">{m.sage}</span>
             </div>
           ))}
         </div>
         <button className="wf-btn wf-btn-outline" style={{ marginTop: '1rem' }}>
-          + Add Mapping
+          + Add Tier
         </button>
       </div>
     </div>
@@ -66,17 +64,17 @@ const SettingsPanel: React.FC = () => (
           <label className="wf-toggle">
             <input type="checkbox" defaultChecked />
             <span className="wf-toggle-slider" />
-            <span>Auto-validate on import</span>
-          </label>
-          <label className="wf-toggle">
-            <input type="checkbox" />
-            <span className="wf-toggle-slider" />
-            <span>Skip duplicates silently</span>
+            <span>Quote prices in CSV cells</span>
           </label>
           <label className="wf-toggle">
             <input type="checkbox" defaultChecked />
             <span className="wf-toggle-slider" />
-            <span>Show upload notifications</span>
+            <span>Include header row in export</span>
+          </label>
+          <label className="wf-toggle">
+            <input type="checkbox" />
+            <span className="wf-toggle-slider" />
+            <span>Exclude BLOCKED items</span>
           </label>
         </div>
       </div>

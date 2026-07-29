@@ -6,16 +6,16 @@ interface HeaderProps {
 
 const viewLabels: Record<string, string> = {
   dashboard: '📊 Dashboard',
-  import:    '📥 Import Stock Data',
-  data:      '📋 Data Table',
+  import:    '📥 Edit Prices & Export CSV',
+  data:      '📋 Switch Price List',
   settings:  '⚙️ Settings',
 };
 
 const Header: React.FC<HeaderProps> = ({ activeView }) => (
   <header className="app-header">
     <div className="header-brand">
-      <span className="brand-icon">🐂</span>
-      <span className="brand-name">SageStockUpload</span>
+      <span className="brand-icon">⚡</span>
+      <span className="brand-name">Switch Pricelist</span>
     </div>
     <div className="header-breadcrumb">
       {viewLabels[activeView] || 'Dashboard'}

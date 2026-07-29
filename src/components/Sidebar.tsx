@@ -10,8 +10,8 @@ interface SidebarProps {
 
 const navItems: { key: ViewKey; icon: string; label: string }[] = [
   { key: 'dashboard', icon: '📊', label: 'Dashboard' },
-  { key: 'import',    icon: '📥', label: 'Import' },
-  { key: 'data',      icon: '📋', label: 'Data' },
+  { key: 'import',    icon: '📥', label: 'Edit & Export' },
+  { key: 'data',      icon: '📋', label: 'Price Table' },
   { key: 'settings',  icon: '⚙️', label: 'Settings' },
 ];
 

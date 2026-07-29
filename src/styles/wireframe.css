@@ -601,3 +601,28 @@ body {
 .settings-panel {
   max-width: 1100px;
 }
+
+/* ── Editable Table Cells ── */
+.wf-cell-numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.wf-table td {
+  cursor: default;
+  transition: background .1s;
+}
+.wf-table td:hover {
+  background: #f0f4ff;
+}
+.wf-cell-input {
+  width: 100%;
+  padding: 4px 6px;
+  border: 2px solid var(--wf-primary);
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  text-align: inherit;
+  background: #fff;
+  outline: none;
+}

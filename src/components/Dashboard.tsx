@@ -40,33 +40,45 @@ const Dashboard: React.FC = () => (
   <div className="dashboard">
     {/* ── KPI Row ── */}
     <div className="wf-grid wf-grid-4">
-      <WireframeCard title="Total Items" subtitle="Stock records" accent="blue">
-        <StatBlock value="1,248" label="+12 this week" />
+      <WireframeCard title="Total SKUs" subtitle="Unique stock items" accent="blue">
+        <StatBlock value="~210" label="Across all pricelists" />
       </WireframeCard>
-      <WireframeCard title="Pending Uploads" subtitle="Awaiting sync" accent="amber">
-        <StatBlock value="34" label="3 overdue" />
+      <WireframeCard title="Pricelists" subtitle="Active price tiers" accent="amber">
+        <StatBlock value="4" label="Retail + 3 Warehouses" />
       </WireframeCard>
-      <WireframeCard title="Last Sync" subtitle="Sage integration" accent="green">
-        <StatBlock value="2h ago" label="✓ Success" />
+      <WireframeCard title="Last Export" subtitle="CSV generated" accent="green">
+        <StatBlock value="Today" label="✓ SWITCH PRICELIST.csv" />
       </WireframeCard>
-      <WireframeCard title="Errors" subtitle="Validation failures" accent="purple">
-        <StatBlock value="2" label="Needs review" />
+      <WireframeCard title="Blocked Items" subtitle="Marked BLOCKED" accent="purple">
+        <StatBlock value="~45" label="Needs review" />
       </WireframeCard>
     </div>
 
-    {/* ── Chart + Activity ── */}
+    {/* ── Pricelist Summary + Activity ── */}
     <div className="wf-grid wf-grid-2">
-      <WireframeCard title="Weekly Upload Activity" subtitle="Stock items uploaded per day">
-        <PlaceholderChart />
-      </WireframeCard>
-
-      <WireframeCard title="Recent Activity" accent="green">
+      <WireframeCard title="Pricelist Tiers" subtitle="Price levels across locations">
         <div className="wf-activity-list">
           {[
-            { time: '10:32 AM', msg: 'Uploaded 45 items → Sage Cloud',  type: 'upload' },
-            { time: '09:15 AM', msg: 'Validated column mapping',        type: 'config' },
-            { time: 'Yesterday', msg: 'Exported report to Excel sheet', type: 'export' },
-            { time: 'Yesterday', msg: '2 validation errors fixed',      type: 'fix' },
+            { time: 'Retail',     msg: 'Highest pricing — walk-in customers',       type: 'upload' },
+            { time: 'Warehouse',  msg: 'Lusaka — mid-tier trade pricing',           type: 'config' },
+            { time: 'Warehouse',  msg: 'Kitwe — mid-tier trade pricing',            type: 'export' },
+            { time: 'Jesmondine', msg: 'Special location pricing',                   type: 'fix' },
+          ].map((a, i) => (
+            <div key={i} className={`wf-activity-item wf-activity-${a.type}`}>
+              <span className="wf-activity-time">{a.time}</span>
+              <span className="wf-activity-msg">{a.msg}</span>
+            </div>
+          ))}
+        </div>
+      </WireframeCard>
+
+      <WireframeCard title="Recent Changes" accent="green">
+        <div className="wf-activity-list">
+          {[
+            { time: '10:32 AM', msg: 'Updated DEYE inverter prices',            type: 'upload' },
+            { time: '09:15 AM', msg: 'Added new JINKO 620W panels',             type: 'config' },
+            { time: 'Yesterday', msg: 'Marked 8 items as BLOCKED',              type: 'fix' },
+            { time: 'Yesterday', msg: 'Exported SWITCH PRICELIST.csv',          type: 'export' },
           ].map((a, i) => (
             <div key={i} className={`wf-activity-item wf-activity-${a.type}`}>
               <span className="wf-activity-time">{a.time}</span>
@@ -80,11 +92,11 @@ const Dashboard: React.FC = () => (
     {/* ── Quick Actions ── */}
     <WireframeCard title="⚡ Quick Actions" accent="blue">
       <div className="wf-actions-row">
-        <button className="wf-btn wf-btn-primary">📥 Import CSV</button>
-        <button className="wf-btn wf-btn-outline">🔗 Connect Sage</button>
-        <button className="wf-btn wf-btn-outline">📤 Upload All</button>
-        <button className="wf-btn wf-btn-outline">📊 Export Report</button>
-        <button className="wf-btn wf-btn-outline">🗑 Clear Sheet</button>
+        <button className="wf-btn wf-btn-primary">📥 Load from Sheet</button>
+        <button className="wf-btn wf-btn-outline">➕ Add New SKU</button>
+        <button className="wf-btn wf-btn-outline">📤 Export CSV</button>
+        <button className="wf-btn wf-btn-outline">🔍 Find Blocked</button>
+        <button className="wf-btn wf-btn-outline">📋 Copy to Clipboard</button>
       </div>
     </WireframeCard>
   </div>
