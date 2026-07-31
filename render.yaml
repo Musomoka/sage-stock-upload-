@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: sage-stock-upload
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./docs
+    pullRequestPreviewsEnabled: true
