@@ -41,6 +41,17 @@ const ColumnMapper: React.FC<ColumnMapperProps> = ({ excelHeaders, mapping, onMa
     ]);
   };
 
+  const addColumnWithSource = (excelIndex: number) => {
+    const header = excelHeaders[excelIndex] || `Column ${excelIndex + 1}`;
+    onMappingChange([
+      ...mapping,
+      { id: uid(), csvName: header, excelIndex, format: 'text' },
+    ]);
+  };
+
+  const isColumnMapped = (excelIndex: number): boolean =>
+    mapping.some((m) => m.excelIndex === excelIndex);
+
   const removeColumn = (index: number) => {
     onMappingChange(mapping.filter((_, i) => i !== index));
   };
@@ -78,8 +89,30 @@ const ColumnMapper: React.FC<ColumnMapperProps> = ({ excelHeaders, mapping, onMa
   return (
     <div className="wf-column-mapper">
       <p className="wf-hint">
-        Drag rows to set CSV column order. Choose which Excel column feeds each output column.
+        Drag rows to set CSV column order. Click an Excel column below to add it, or use <strong>+ Add Column</strong> for an empty placeholder.
       </p>
+
+      {/* ── Quick-add chips for each Excel column ── */}
+      {excelHeaders.length > 0 && (
+        <div className="wf-quick-add-row">
+          {excelHeaders.map((header, i) => {
+            const mapped = isColumnMapped(i);
+            return (
+              <button
+                key={i}
+                className={`wf-chip ${mapped ? 'wf-chip-used' : ''}`}
+                disabled={mapped}
+                onClick={() => addColumnWithSource(i)}
+                title={mapped ? `${header} is already mapped` : `Add ${header} as an output column`}
+              >
+                {header}
+                <span className="wf-chip-col">({String.fromCharCode(65 + i)})</span>
+                {mapped && <span className="wf-chip-check"> ✓</span>}
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {mapping.length === 0 ? (
         <div className="wf-empty-state">

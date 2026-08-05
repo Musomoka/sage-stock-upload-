@@ -765,6 +765,51 @@ body {
 }
 .wf-inline-label .wf-select-sm { width: auto; }
 
+/* ── Quick-add chips ── */
+.wf-quick-add-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.wf-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border: 1px dashed var(--wf-dash);
+  border-radius: 14px;
+  font-size: 12px;
+  background: var(--wf-surface);
+  color: var(--wf-primary);
+  cursor: pointer;
+  transition: all .12s;
+  white-space: nowrap;
+}
+.wf-chip:hover {
+  border-style: solid;
+  border-color: var(--wf-primary);
+  background: #eff6ff;
+}
+.wf-chip:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+.wf-chip-used {
+  border-color: var(--wf-green);
+  color: var(--wf-green);
+  border-style: solid;
+  background: #f0fdf4;
+}
+.wf-chip-col {
+  font-size: 10px;
+  color: var(--wf-muted);
+}
+.wf-chip-check {
+  font-size: 11px;
+  color: var(--wf-green);
+}
+
 /* ── Column Mapper ── */
 .wf-column-mapper {
   width: 100%;

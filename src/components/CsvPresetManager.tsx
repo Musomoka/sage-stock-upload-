@@ -74,6 +74,9 @@ const CsvPresetManager: React.FC<CsvPresetManagerProps> = ({
 
         <div className="wf-form-group">
           <label className="wf-label">Save current layout as preset</label>
+          {currentMapping.length === 0 && (
+            <p className="wf-hint">Add at least one column in the mapper above, then type a name to save.</p>
+          )}
           <div className="wf-selection-row">
             <input
               className="wf-input"
