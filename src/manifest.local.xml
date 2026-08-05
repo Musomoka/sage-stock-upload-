@@ -6,17 +6,17 @@
   xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
   xsi:type="TaskPaneApp">
 
-  <!-- ── Identity ── -->
-  <Id>cfb8aef4-6e45-40ea-a0ef-3aea45ebc449</Id>
+  <!-- ── Identity (LOCAL dev copy — distinct GUID from the hosted manifest) ── -->
+  <Id>6e5e6895-efe4-4d23-81fb-9b1d183a1fac</Id>
   <Version>1.0.0.0</Version>
   <ProviderName>ExcelCsvMapper</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Excel → CSV Mapper" />
-  <Description DefaultValue="Map Excel data to CSV templates and export" />
+  <DisplayName DefaultValue="Excel → CSV Mapper (Local)" />
+  <Description DefaultValue="Map Excel data to CSV templates and export — local dev build" />
 
-  <!-- ── Icons ── -->
-  <IconUrl DefaultValue="https://musomoka.github.io/sage-stock-upload-/assets/icon-32.png" />
-  <HighResolutionIconUrl DefaultValue="https://musomoka.github.io/sage-stock-upload-/assets/icon-64.png" />
+  <!-- ── Icons (served by the local dev server) ── -->
+  <IconUrl DefaultValue="http://localhost:3000/assets/icon-32.png" />
+  <HighResolutionIconUrl DefaultValue="http://localhost:3000/assets/icon-64.png" />
   <SupportUrl DefaultValue="https://github.com/Musomoka/sage-stock-upload-/issues" />
 
   <!-- ── Host ── -->
@@ -26,7 +26,7 @@
 
   <!-- ── Default Settings ── -->
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://musomoka.github.io/sage-stock-upload-/index.html" />
+    <SourceLocation DefaultValue="http://localhost:3000/index.html" />
   </DefaultSettings>
 
   <!-- ── Permissions ── -->
@@ -80,26 +80,26 @@
 
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16x16" DefaultValue="https://musomoka.github.io/sage-stock-upload-/assets/icon-16.png" />
-        <bt:Image id="Icon.32x32" DefaultValue="https://musomoka.github.io/sage-stock-upload-/assets/icon-32.png" />
-        <bt:Image id="Icon.80x80" DefaultValue="https://musomoka.github.io/sage-stock-upload-/assets/icon-80.png" />
+        <bt:Image id="Icon.16x16" DefaultValue="http://localhost:3000/assets/icon-16.png" />
+        <bt:Image id="Icon.32x32" DefaultValue="http://localhost:3000/assets/icon-32.png" />
+        <bt:Image id="Icon.80x80" DefaultValue="http://localhost:3000/assets/icon-80.png" />
       </bt:Images>
 
       <bt:Urls>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://musomoka.github.io/sage-stock-upload-/index.html" />
+        <bt:Url id="Taskpane.Url" DefaultValue="http://localhost:3000/index.html" />
         <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://github.com/Musomoka/sage-stock-upload-" />
       </bt:Urls>
 
       <bt:ShortStrings>
         <bt:String id="Group.Label" DefaultValue="CSV Mapper" />
-        <bt:String id="ShowTaskpane.Label" DefaultValue="Map &amp; Export" />
+        <bt:String id="ShowTaskpane.Label" DefaultValue="Map &amp; Export (Local)" />
         <bt:String id="ShowTaskpane.Title" DefaultValue="ExcelCsvMapper" />
         <bt:String id="GetStarted.Title" DefaultValue="ExcelCsvMapper" />
       </bt:ShortStrings>
 
       <bt:LongStrings>
-        <bt:String id="ShowTaskpane.Description" DefaultValue="Select an Excel range, map columns, and export a CSV matching your layout." />
-        <bt:String id="GetStarted.Description" DefaultValue="Select a worksheet range, map columns to a CSV layout, and export." />
+        <bt:String id="ShowTaskpane.Description" DefaultValue="Select an Excel range, map columns, and export a CSV matching your layout. (Local dev build)" />
+        <bt:String id="GetStarted.Description" DefaultValue="Select a worksheet range, map columns to a CSV layout, and export. (Local dev build)" />
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>

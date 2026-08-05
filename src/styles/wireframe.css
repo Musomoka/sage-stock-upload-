@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════
-   SageStockUpload – Wireframe Stylesheet
+   Excel CSV Mapper – Wireframe Stylesheet
    ═══════════════════════════════════════════ */
 
 /* ── Reset & Variables ── */
@@ -545,7 +545,7 @@ body {
   flex: 1;
   font-weight: 500;
 }
-.wf-mapping-sage {
+.wf-mapping-output {
   flex: 1;
   color: var(--wf-primary);
   font-family: 'SF Mono', 'Fira Code', monospace;
@@ -625,4 +625,248 @@ body {
   text-align: inherit;
   background: #fff;
   outline: none;
+}
+
+/* ═══════════════════════════════════════════
+   Export Workflow – Range, Mapping, Config, Preview
+   ═══════════════════════════════════════════ */
+
+.export-workflow {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── Selects ── */
+.wf-select {
+  padding: 8px 10px;
+  border: 1px dashed var(--wf-dash);
+  border-radius: var(--wf-radius);
+  font-size: 13px;
+  font-family: var(--font-sans);
+  background: var(--wf-surface);
+  color: var(--wf-text);
+  flex: 1;
+  min-width: 0;
+}
+.wf-select:focus {
+  outline: none;
+  border-style: solid;
+  border-color: var(--wf-primary);
+}
+.wf-input-sm, .wf-select-sm {
+  padding: 5px 8px;
+  font-size: 12px;
+  min-width: 0;
+}
+
+/* ── Buttons ── */
+.wf-btn-danger {
+  border-color: #dc3545;
+  color: #dc3545;
+  background: #fff;
+}
+.wf-btn-danger:hover {
+  background: #dc3545;
+  color: #fff;
+}
+.wf-btn-lg {
+  padding: 10px 18px;
+  font-size: 14px;
+}
+
+/* ── Form grid ── */
+.wf-form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.wf-checkbox-row {
+  margin-bottom: 14px;
+}
+
+/* ── Selection row ── */
+.wf-selection-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.wf-selection-addr {
+  flex: 1;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 13px;
+  background: #f1f3f5;
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+.wf-muted-text { color: var(--wf-muted); }
+
+/* ── Banners & hints ── */
+.wf-error-banner {
+  margin: 10px 0;
+  padding: 10px 12px;
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  font-size: 13px;
+}
+.wf-success-banner {
+  margin: 10px 0;
+  padding: 10px 12px;
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  font-size: 13px;
+}
+.wf-range-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #eff6ff;
+  border: 1px dashed #93c5fd;
+  border-radius: 6px;
+  font-size: 12px;
+  flex-wrap: wrap;
+}
+.wf-hint {
+  font-size: 12px;
+  color: var(--wf-muted);
+  margin-bottom: 10px;
+}
+.wf-empty-state {
+  padding: 16px;
+  text-align: center;
+  color: var(--wf-muted);
+  font-size: 13px;
+  border: 1px dashed var(--wf-dash);
+  border-radius: 6px;
+}
+
+/* ── Section title ── */
+.wf-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--wf-muted);
+  margin: 14px 0 8px;
+}
+
+/* ── Inline label (mapper controls) ── */
+.wf-inline-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--wf-muted);
+}
+.wf-inline-label .wf-select-sm { width: auto; }
+
+/* ── Column Mapper ── */
+.wf-column-mapper {
+  width: 100%;
+}
+.wf-mapper-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+.wf-mapper-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px dashed var(--wf-dash);
+  border-radius: 8px;
+  background: var(--wf-surface);
+  cursor: grab;
+  transition: border-color .12s, background .12s, opacity .12s;
+}
+.wf-mapper-row:active { cursor: grabbing; }
+.wf-dragging {
+  opacity: .45;
+  border-style: solid;
+  border-color: var(--wf-primary);
+}
+.wf-drag-over {
+  border-color: var(--wf-primary);
+  border-style: solid;
+  background: #eff6ff;
+}
+.wf-drag-handle {
+  color: var(--wf-dash);
+  font-size: 16px;
+  line-height: 1;
+  padding-top: 6px;
+  user-select: none;
+}
+.wf-mapper-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.wf-mapper-controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ── Filter rows ── */
+.wf-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.wf-filter-row .wf-select { flex: 1; }
+.wf-filter-row .wf-input { flex: 1; }
+
+/* ── Toggle inline ── */
+.wf-toggle-inline { margin-left: auto; }
+
+/* ── Preview table ── */
+.wf-table-sm th, .wf-table-sm td {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+.wf-preview-note {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--wf-muted);
+  text-align: center;
+}
+
+/* ── Navigation row ── */
+.wf-nav-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 6px;
+}
+.wf-nav-row .wf-btn { min-width: 90px; }
+
+/* ── Export summary ── */
+.wf-export-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.wf-stat-value-sm {
+  font-size: 13px;
+  word-break: break-all;
+}
+
+/* ── Step done state ── */
+.wf-step-done .wf-step-num {
+  background: var(--wf-green);
+  color: #fff;
 }

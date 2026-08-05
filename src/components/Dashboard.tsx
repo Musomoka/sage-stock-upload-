@@ -1,5 +1,10 @@
 import React from 'react';
 
+interface DashboardProps {
+  isOffice: boolean;
+  onNavigate: (view: 'dashboard' | 'import' | 'data' | 'settings' | 'export') => void;
+}
+
 /* ── Wireframe card with dashed border & placeholder pattern ── */
 const WireframeCard: React.FC<{
   title: string;
@@ -36,33 +41,33 @@ const PlaceholderChart: React.FC = () => (
 );
 
 /* ── Dashboard ── */
-const Dashboard: React.FC = () => (
+const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => (
   <div className="dashboard">
     {/* ── KPI Row ── */}
     <div className="wf-grid wf-grid-4">
-      <WireframeCard title="Total SKUs" subtitle="Unique stock items" accent="blue">
-        <StatBlock value="~210" label="Across all pricelists" />
+      <WireframeCard title="Total Records" subtitle="Rows of data" accent="blue">
+        <StatBlock value="—" label="Load a range to see data" />
       </WireframeCard>
-      <WireframeCard title="Pricelists" subtitle="Active price tiers" accent="amber">
-        <StatBlock value="4" label="Retail + 3 Warehouses" />
+      <WireframeCard title="Columns" subtitle="Available source columns" accent="amber">
+        <StatBlock value="—" label="Detected from headers" />
       </WireframeCard>
       <WireframeCard title="Last Export" subtitle="CSV generated" accent="green">
-        <StatBlock value="Today" label="✓ SWITCH PRICELIST.csv" />
+        <StatBlock value="—" label="Export to create a file" />
       </WireframeCard>
-      <WireframeCard title="Blocked Items" subtitle="Marked BLOCKED" accent="purple">
-        <StatBlock value="~45" label="Needs review" />
+      <WireframeCard title="Filtered Rows" subtitle="Excluded by rules" accent="purple">
+        <StatBlock value="—" label="Configure filters to exclude" />
       </WireframeCard>
     </div>
 
-    {/* ── Pricelist Summary + Activity ── */}
+    {/* ── Column Summary + Activity ── */}
     <div className="wf-grid wf-grid-2">
-      <WireframeCard title="Pricelist Tiers" subtitle="Price levels across locations">
+      <WireframeCard title="CSV Presets" subtitle="Saved column layouts">
         <div className="wf-activity-list">
           {[
-            { time: 'Retail',     msg: 'Highest pricing — walk-in customers',       type: 'upload' },
-            { time: 'Warehouse',  msg: 'Lusaka — mid-tier trade pricing',           type: 'config' },
-            { time: 'Warehouse',  msg: 'Kitwe — mid-tier trade pricing',            type: 'export' },
-            { time: 'Jesmondine', msg: 'Special location pricing',                   type: 'fix' },
+            { time: '—',   msg: 'Select an Excel range in the Export CSV view',    type: 'upload' },
+            { time: '—',   msg: 'Drag columns into your desired CSV order',        type: 'config' },
+            { time: '—',   msg: 'Set text or number format per column',            type: 'export' },
+            { time: '—',   msg: 'Save your layout as a reusable preset',           type: 'fix' },
           ].map((a, i) => (
             <div key={i} className={`wf-activity-item wf-activity-${a.type}`}>
               <span className="wf-activity-time">{a.time}</span>
@@ -75,10 +80,7 @@ const Dashboard: React.FC = () => (
       <WireframeCard title="Recent Changes" accent="green">
         <div className="wf-activity-list">
           {[
-            { time: '10:32 AM', msg: 'Updated DEYE inverter prices',            type: 'upload' },
-            { time: '09:15 AM', msg: 'Added new JINKO 620W panels',             type: 'config' },
-            { time: 'Yesterday', msg: 'Marked 8 items as BLOCKED',              type: 'fix' },
-            { time: 'Yesterday', msg: 'Exported SWITCH PRICELIST.csv',          type: 'export' },
+            { time: '—', msg: 'No recent activity yet',                          type: 'upload' },
           ].map((a, i) => (
             <div key={i} className={`wf-activity-item wf-activity-${a.type}`}>
               <span className="wf-activity-time">{a.time}</span>
@@ -92,11 +94,15 @@ const Dashboard: React.FC = () => (
     {/* ── Quick Actions ── */}
     <WireframeCard title="⚡ Quick Actions" accent="blue">
       <div className="wf-actions-row">
-        <button className="wf-btn wf-btn-primary">📥 Load from Sheet</button>
-        <button className="wf-btn wf-btn-outline">➕ Add New SKU</button>
-        <button className="wf-btn wf-btn-outline">📤 Export CSV</button>
-        <button className="wf-btn wf-btn-outline">🔍 Find Blocked</button>
-        <button className="wf-btn wf-btn-outline">📋 Copy to Clipboard</button>
+        <button className="wf-btn wf-btn-primary" onClick={() => onNavigate('export')}>
+          📤 Export CSV
+        </button>
+        <button className="wf-btn wf-btn-outline" onClick={() => onNavigate('data')}>
+          📋 Price Table
+        </button>
+        <button className="wf-btn wf-btn-outline" onClick={() => onNavigate('settings')}>
+          ⚙️ Settings
+        </button>
       </div>
     </WireframeCard>
   </div>

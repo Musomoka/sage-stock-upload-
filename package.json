@@ -1,21 +1,24 @@
 {
-  "name": "sage-stock-upload",
+  "name": "excel-csv-mapper",
   "version": "1.0.0",
-  "description": "SageStockUpload – Excel Add-in Wireframe for stock data management",
+  "description": "Excel → CSV Mapper — Excel Add-in for mapping worksheet data to CSV templates",
   "private": true,
   "scripts": {
     "dev": "webpack serve --mode development",
     "build": "webpack --mode production",
     "start": "webpack serve --mode development --open",
     "deploy": "npm run build && git add docs && git commit -m 'Deploy to Pages' && git push",
+    "sideload": "npm run dev & sleep 6 && mkdir -p \"$HOME/Library/Containers/com.microsoft.Excel/Data/Documents/wef\" && cp src/manifest.local.xml \"$HOME/Library/Containers/com.microsoft.Excel/Data/Documents/wef/manifest.local.xml\" && echo '✅ Local add-in installed. Restart Excel, then Home > Add-ins > Excel → CSV Mapper (Local).'"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@microsoft/office-js": "^1.1.110",
     "@types/react": "^18.2.45",
     "@types/react-dom": "^18.2.18",
+    "copy-webpack-plugin": "^14.0.0",
     "css-loader": "^6.8.1",
     "gh-pages": "^6.1.1",
     "html-webpack-plugin": "^5.6.0",

@@ -4,23 +4,25 @@ import Sidebar from './Sidebar';
 import Dashboard from './Dashboard';
 import DataPanel from './DataPanel';
 import SettingsPanel from './SettingsPanel';
+import ExportWorkflow from './ExportWorkflow';
 
 interface AppProps {
   isOffice: boolean;
 }
 
-type ViewKey = 'dashboard' | 'import' | 'data' | 'settings';
+type ViewKey = 'dashboard' | 'import' | 'data' | 'settings' | 'export';
 
 const App: React.FC<AppProps> = ({ isOffice }) => {
   const [activeView, setActiveView] = useState<ViewKey>('dashboard');
 
   const renderView = () => {
     switch (activeView) {
-      case 'dashboard': return <Dashboard />;
+      case 'dashboard': return <Dashboard isOffice={isOffice} onNavigate={setActiveView} />;
       case 'import':    return <DataPanel />;
       case 'data':      return <DataPanel variant="table" />;
+      case 'export':    return <ExportWorkflow isOffice={isOffice} />;
       case 'settings':  return <SettingsPanel />;
-      default:          return <Dashboard />;
+      default:          return <Dashboard isOffice={isOffice} onNavigate={setActiveView} />;
     }
   };
 

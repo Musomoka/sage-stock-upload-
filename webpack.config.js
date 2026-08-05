@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -27,7 +28,15 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
-      title: 'SageStockUpload',
+      title: 'Excel CSV Mapper',
+    }),
+    // Host the Office manifest + ribbon icons so the add-in can be
+    // sideloaded from a URL and deployed via the M365 admin center.
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/manifest.xml', to: 'manifest.xml' },
+        { from: 'assets', to: 'assets' },
+      ],
     }),
   ],
   devServer: {

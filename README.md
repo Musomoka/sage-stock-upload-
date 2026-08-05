@@ -1,12 +1,12 @@
-# 🐂 SageStockUpload — Excel Add-in Wireframe
+# � Excel → CSV Mapper — Excel Add-in
 
-> A wireframe prototype for an Excel add-in that imports stock data from CSV/Excel and uploads it to **Sage Cloud**.
+> An Excel add-in that lets you select a worksheet range, map columns to any CSV layout, and export.
 
 ---
 
 ## 🎨 Live Wireframe Preview
 
-👉 **[View Wireframe on GitHub Pages](https://YOUR_USERNAME.github.io/sage-stock-upload/)**
+👉 **[View Wireframe on GitHub Pages](https://musomoka.github.io/sage-stock-upload-/)**
 
 The wireframe runs standalone in any browser — no Excel required for preview.
 
@@ -14,16 +14,16 @@ The wireframe runs standalone in any browser — no Excel required for preview.
 
 ## 📸 Screens
 
-| Dashboard | Import | Data Table | Settings |
+| Dashboard | Export CSV | Data Table | Settings |
 |:---:|:---:|:---:|:---:|
-| KPIs, charts, activity | Drop zone, file list, step wizard | Sortable table with toolbar | Sage connection, column mapping, prefs |
+| KPIs, activity feed | Range pick, column mapper, export wizard | Sortable table with toolbar | Presets, default export config |
 
 ---
 
 ## 🏗 Project Structure
 
 ```
-sage-stock-upload/
+excel-csv-mapper/
 ├── .github/workflows/deploy.yml   # Auto-deploy to GitHub Pages
 ├── public/
 │   └── index.html                 # Host page (loads Office.js)
@@ -33,18 +33,42 @@ sage-stock-upload/
 │   │   ├── Header.tsx             # Top bar with breadcrumbs
 │   │   ├── Sidebar.tsx            # Navigation sidebar
 │   │   ├── Dashboard.tsx          # KPI cards, chart, activity feed
-│   │   ├── DataPanel.tsx          # Import wizard + data table
-│   │   └── SettingsPanel.tsx      # Sage config, column mapping, prefs
+│   │   ├── DataPanel.tsx          # Price table view
+│   │   ├── ExportWorkflow.tsx     # 4-step: range → map → configure → export
+│   │   ├── RangeSelector.tsx      # Step 1: pick a worksheet range
+│   │   ├── ColumnMapper.tsx       # Step 2: drag-to-reorder column mapping
+│   │   ├── CsvPresetManager.tsx   # Save/load CSV layout presets
+│   │   ├── ExportConfig.tsx       # Step 3: filters, format, filename
+│   │   ├── DataPreview.tsx        # Live CSV preview with row counts
+│   │   └── SettingsPanel.tsx      # Presets + default export settings
+│   ├── services/
+│   │   ├── excelService.ts        # Office.js range reading + sample data
+│   │   ├── csvService.ts          # CSV generation, formatting, filtering
+│   │   └── settingsService.ts     # localStorage presets & config
 │   ├── styles/
 │   │   └── wireframe.css          # Full wireframe stylesheet
 │   ├── manifest.xml               # Office Add-in manifest
 │   ├── index.tsx                  # Entry point
+│   ├── types.ts                   # Shared domain types
 │   └── declarations.d.ts
 ├── package.json
 ├── tsconfig.json
 ├── webpack.config.js
 └── README.md
 ```
+
+---
+
+## 🎯 How It Works
+
+The **Export CSV** view walks through four steps:
+
+1. **Select Range** — pick cells in the worksheet (or type an address). The add-in reads the selection via Office.js. Outside Excel, a sample dataset is provided for preview.
+2. **Map Columns** — drag output columns into the desired CSV order and choose which Excel column feeds each one. Save the layout as a named preset for repeated use.
+3. **Configure** — set filename, delimiter, decimal places, header row, quoting, and row filters (e.g. exclude rows containing a keyword). A live preview shows exactly what will be exported.
+4. **Export** — download the CSV with prices formatted and filters applied.
+
+Settings (presets, last mapping, export defaults) persist in `localStorage` across sessions.
 
 ---
 
@@ -78,14 +102,26 @@ npm run deploy
 Then enable GitHub Pages in your repo:  
 **Settings → Pages → Source: GitHub Actions**
 
+The build now also publishes the Office **manifest** and **ribbon icons** into
+`docs/`, so after deploying the add-in can be loaded from:
+
+```
+https://musomoka.github.io/sage-stock-upload-/manifest.xml
+```
+
 ---
 
-## 🔌 Side-load into Excel
+## 🔌 Use the add-in in Excel
 
-1. Build: `npm run build`
-2. Update `src/manifest.xml` — replace `YOUR_USERNAME` with your GitHub username
-3. Copy `manifest.xml` to a network share or local folder
-4. In Excel: **Insert → Add-ins → Upload My Add-in** → select `manifest.xml`
+See **[DEPLOYMENT.md](./DEPLOYMENT.md)** for the full guide on making the add-in
+available in **every Excel file** — sideload it on your own machine, or deploy it
+to your whole organization via the Microsoft 365 admin center.
+
+Quick sideload (one machine):
+
+1. Push to `main` so GitHub Pages serves `docs/`.
+2. In Excel: **Insert → Add-ins → My Add-ins → Upload My Add-in → Upload from URL**
+3. Paste `https://musomoka.github.io/sage-stock-upload-/manifest.xml` → Upload.
 
 > ⚠️ HTTPS is required for production add-ins. GitHub Pages provides this automatically.
 

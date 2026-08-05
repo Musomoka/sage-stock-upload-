@@ -12,29 +12,10 @@ const Step: React.FC<{ num: number; label: string; active: boolean }> = ({ num, 
   </div>
 );
 
-/* ── Sample data matching the real Switch price list ── */
-const sampleRows: string[][] = [
-  ['Retail',          'Flex2.5mm3CWHT',       '11.00',  '15.00',  'Flex Cable 2.5MM 3 Core WHITE'],
-  ['Warehouse Lusaka','Flex2.5mm3CWHT',       '6.03',   '6.99',   'Flex Cable 2.5MM 3 Core WHITE'],
-  ['Warehouse Kitwe', 'Flex2.5mm3CWHT',       '6.03',   '6.99',   'Flex Cable 2.5MM 3 Core WHITE'],
-  ['Retail',          'DEYE5KW1PLV',          '825.00', '825.00', 'DEYE 5KW Hybrid Inverter Single Phase'],
-  ['Warehouse Lusaka','DEYE5KW1PLV',          '725.00', '725.00', 'DEYE 5KW Hybrid Inverter Single Phase'],
-  ['Warehouse Kitwe', 'DEYE5KW1PLV',          '750.00', '750.00', 'DEYE 5KW Hybrid Inverter Single Phase'],
-  ['Retail',          'HANCHU5.1KWHWALL',     '685.00', '685.00', 'HANCHU 5.1KWH 48V LV Battery - WALL MOUNT'],
-  ['Warehouse Lusaka','HANCHU5.1KWHWALL',     '650.00', '650.00', 'HANCHU 5.1KWH 48V LV Battery - WALL MOUNT'],
-  ['Warehouse Kitwe', 'HANCHU5.1KWHWALL',     '660.00', '660.00', 'HANCHU 5.1KWH 48V LV Battery - WALL MOUNT'],
-  ['Retail',          'JIN-620W',             '80.00',  '80.00',  'PV MODULE 620W JINKO SOLAR'],
-  ['Warehouse Lusaka','JIN-620W',             '71.00',  '71.00',  'PV MODULE 620W JINKO SOLAR'],
-  ['Warehouse Kitwe', 'JIN-620W',             '75.00',  '75.00',  'PV MODULE 620W JINKO SOLAR'],
-  ['Retail',          'MCB32A1P',             '3.45',   '4.00',   'TOSUN MCB 32A 1P AC Breaker'],
-  ['Warehouse Lusaka','MCB32A1P',             '2.59',   '3.00',   'TOSUN MCB 32A 1P AC Breaker'],
-  ['Warehouse Kitwe', 'MCB32A1P',             '2.59',   '3.00',   'TOSUN MCB 32A 1P AC Breaker'],
-  ['Retail',          'DL5.0C',               '690.00', '690.00', 'DYNESS DL5.0C 5.1KWH 48V 100AH Battery'],
-  ['Warehouse Lusaka','DL5.0C',               '650.00', '650.00', 'DYNESS DL5.0C 5.1KWH 48V 100AH Battery'],
-  ['Warehouse Kitwe', 'DL5.0C',               '665.00', '665.00', 'DYNESS DL5.0C 5.1KWH 48V 100AH Battery'],
-];
+/* ── No sample data — load real data from an Excel range ── */
 
-const headers = ['PRICELIST NAME', 'STOCK LINK', 'EXCLUSIVE', 'INCLUSIVE', 'DESCRIPTION'];
+const sampleRows: string[][] = [];
+const headers: string[] = [];
 
 /* ── CSV Export ── */
 const exportToCSV = (rows: string[][]) => {
@@ -43,7 +24,7 @@ const exportToCSV = (rows: string[][]) => {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'SWITCH PRICELIST.csv';
+  a.download = 'export.csv';
   a.click();
   URL.revokeObjectURL(url);
 };
@@ -84,7 +65,7 @@ const PriceTable: React.FC = () => {
       <div className="wf-table-toolbar">
         <input
           className="wf-input"
-          placeholder="🔍 Search by SKU, name, or pricelist…"
+          placeholder="🔍 Search…"
           value={search}
           onChange={e => setSearch(e.target.value)}
         />
@@ -96,13 +77,20 @@ const PriceTable: React.FC = () => {
         </button>
       </div>
 
-      <div className="wf-table-wrap">
-        <table className="wf-table">
-          <thead>
-            <tr>{headers.map((h) => <th key={h}>{h}</th>)}</tr>
-          </thead>
-          <tbody>
-            {filtered.map((row, ri) => (
+      {rows.length === 0 ? (
+        <div className="wf-empty-state">
+          No data loaded. Use the <strong>Export CSV</strong> view to select a worksheet
+          range and map its columns.
+        </div>
+      ) : (
+        <>
+        <div className="wf-table-wrap">
+          <table className="wf-table">
+            <thead>
+              <tr>{headers.map((h) => <th key={h}>{h}</th>)}</tr>
+            </thead>
+            <tbody>
+              {filtered.map((row, ri) => (
               <tr key={ri}>
                 {row.map((cell, ci) => {
                   const isEditing = editing?.row === ri && editing?.col === ci;
@@ -138,10 +126,12 @@ const PriceTable: React.FC = () => {
         <span>Showing {filtered.length} of {rows.length} records (double-click to edit)</span>
         <div className="wf-pagination">
           <button className="wf-btn wf-btn-sm" disabled>‹ Prev</button>
-          <span className="wf-page-info">~210 SKUs × 4 tiers</span>
+          <span className="wf-page-info">{rows.length} records</span>
           <button className="wf-btn wf-btn-sm">Next ›</button>
         </div>
       </div>
+        </>
+      )}
     </>
   );
 };
@@ -154,22 +144,22 @@ const DataPanel: React.FC<DataPanelProps> = ({ variant = 'import' }) => (
         {/* ── Workflow Steps ── */}
         <div className="wf-card wf-accent-blue">
           <div className="wf-card-header">
-            <h3 className="wf-card-title">📥 Edit Prices → Export CSV</h3>
-            <p className="wf-card-subtitle">Edit prices in Excel, then export a pricelist CSV matching the Switch format</p>
+            <h3 className="wf-card-title">📥 Edit Data → Export CSV</h3>
+            <p className="wf-card-subtitle">Edit data in the table, then export as a CSV file</p>
           </div>
           <div className="wf-card-body">
             <div className="wf-steps">
-              <Step num={1} label="Load Sheet" active />
-              <Step num={2} label="Edit Prices" active={false} />
-              <Step num={3} label="Calculate" active={false} />
+              <Step num={1} label="Load Data" active />
+              <Step num={2} label="Edit" active={false} />
+              <Step num={3} label="Review" active={false} />
               <Step num={4} label="Export CSV" active={false} />
             </div>
 
             {/* ── Drop zone ── */}
             <div className="wf-dropzone">
               <span className="wf-dropzone-icon">📊</span>
-              <p className="wf-dropzone-text">Select your Excel price list sheet</p>
-              <p className="wf-dropzone-hint">Columns: PRICELIST NAME | STOCK LINK | EXCLUSIVE | INCLUSIVE | DESCRIPTION</p>
+              <p className="wf-dropzone-text">Select a range in your Excel worksheet</p>
+              <p className="wf-dropzone-hint">The first row is used as the CSV column headers</p>
               <button className="wf-btn wf-btn-primary">Select Sheet Range</button>
               <p className="wf-dropzone-types">The add-in reads directly from the active Excel worksheet</p>
             </div>
@@ -177,17 +167,7 @@ const DataPanel: React.FC<DataPanelProps> = ({ variant = 'import' }) => (
             {/* ── Recent exports ── */}
             <div className="wf-recent-files">
               <h4>📄 Recent Exports</h4>
-              {[
-                'SWITCH PRICELIST (Jul 29).csv',
-                'SWITCH PRICELIST (Jul 25).csv',
-                'SWITCH PRICELIST (Jul 20).csv',
-              ].map((f, i) => (
-                <div key={i} className="wf-file-item">
-                  <span className="wf-file-icon">📄</span>
-                  <span className="wf-file-name">{f}</span>
-                  <span className="wf-file-date">⬇ Download</span>
-                </div>
-              ))}
+              <p className="wf-hint">Exported files will appear here</p>
             </div>
           </div>
         </div>
@@ -198,7 +178,7 @@ const DataPanel: React.FC<DataPanelProps> = ({ variant = 'import' }) => (
       <>
         <div className="wf-card wf-accent-blue">
           <div className="wf-card-header">
-            <h3 className="wf-card-title">📋 Switch Price List</h3>
+            <h3 className="wf-card-title">📋 Data Table</h3>
             <p className="wf-card-subtitle">Double-click any cell to edit. Press Export CSV to generate the file.</p>
           </div>
           <div className="wf-card-body">

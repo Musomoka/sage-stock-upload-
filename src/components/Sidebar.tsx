@@ -1,6 +1,6 @@
 import React from 'react';
 
-type ViewKey = 'dashboard' | 'import' | 'data' | 'settings';
+type ViewKey = 'dashboard' | 'import' | 'data' | 'settings' | 'export';
 
 interface SidebarProps {
   activeView: ViewKey;
@@ -10,6 +10,7 @@ interface SidebarProps {
 
 const navItems: { key: ViewKey; icon: string; label: string }[] = [
   { key: 'dashboard', icon: '📊', label: 'Dashboard' },
+  { key: 'export',    icon: '📤', label: 'Export CSV' },
   { key: 'import',    icon: '📥', label: 'Edit & Export' },
   { key: 'data',      icon: '📋', label: 'Price Table' },
   { key: 'settings',  icon: '⚙️', label: 'Settings' },
@@ -19,7 +20,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, onNavigate, compact }) =>
   <nav className={`sidebar ${compact ? 'sidebar-compact' : ''}`}>
     <div className={`sidebar-brand ${compact ? 'sidebar-brand-compact' : ''}`}>
       <span className="brand-icon-large">🐂</span>
-      {!compact && <span className="brand-title">SageStock</span>}
+      {!compact && <span className="brand-title">CSV Mapper</span>}
     </div>
     <ul className="sidebar-nav">
       {navItems.map((item) => (
